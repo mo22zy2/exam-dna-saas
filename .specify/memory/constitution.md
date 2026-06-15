@@ -1,50 +1,126 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+  Sync Impact Report
+  ========================================================================
+  Version change: 0.0.0 (uninitialized template) → 1.0.0
+  Modified principles (all new):
+    - [PRINCIPLE_1_NAME] → I. Technology Stack
+    - [PRINCIPLE_2_NAME] → II. LLM Abstraction Layer
+    - [PRINCIPLE_3_NAME] → III. Input Validation
+    - [PRINCIPLE_4_NAME] → IV. Server-Side Enforcement
+    - [PRINCIPLE_5_NAME] → V. Job Reliability & Retry
+  Added sections:
+    - Development Constraints (was [SECTION_2_NAME])
+    - Quality & Observability (was [SECTION_3_NAME])
+    - Governance rules populated
+  Removed sections: none
+  Templates requiring updates:
+    - ✅ .specify/templates/plan-template.md (generic Constitution Check — no change needed)
+    - ✅ .specify/templates/spec-template.md (no principle-specific references)
+    - ✅ .specify/templates/tasks-template.md (no principle-specific references)
+    - ✅ .opencode/commands/*.md (no CLAUDE/outdated references found)
+  Follow-up TODOs:
+    - TODO(RATIFICATION_DATE): ask project lead for original adoption date
+  ========================================================================
+-->
+
+# Exam DNA SaaS Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Technology Stack
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+- **Backend**: Python/FastAPI with SQLAlchemy ORM and Alembic for
+  migrations. Prisma MUST NOT be used.
+- **Frontend**: Next.js (App Router) + TypeScript + Tailwind CSS.
+- **Queue**: RQ (Redis Queue). Celery and BullMQ MUST NOT be used.
+- **Database**: PostgreSQL (via SQLAlchemy).
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+Rationale: Standardizing on a single ORM, queue, and frontend framework
+avoids fragmentation, reduces maintenance burden, and ensures all
+contributors share a common mental model.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. LLM Abstraction Layer
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+- All LLM provider calls MUST go through the single `llm.py` abstraction
+  module.
+- Provider SDKs MUST NOT be called directly from any other module.
+- The `llm.py` module owns prompt construction, retry logic, token
+  tracking, and response parsing.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Rationale: Centralizing LLM interactions prevents provider lock-in,
+enables consistent observability, and simplifies swapping providers or
+models.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. Input Validation
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- Every API endpoint MUST validate its input with Pydantic models.
+- Request bodies, query parameters, and path parameters are all in scope.
+- Validation errors MUST return structured error responses.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Rationale: Pydantic provides compile-time and runtime guarantees against
+malformed or malicious input, eliminating an entire class of bugs.
+
+### IV. Server-Side Enforcement
+
+- Free-tier limits (file count, analyses per month, storage quota) MUST
+  be enforced server-side, never only client-side.
+- The frontend MAY display limits for UX, but the backend is the
+  authoritative gate.
+
+Rationale: Client-only checks are trivially bypassed. Server-side
+enforcement is the only reliable way to protect plan boundaries.
+
+### V. Job Reliability & Retry
+
+- Every async RQ job MUST log errors to the `Job` database table.
+- Each job MUST support automatic retry with a maximum of 3 attempts.
+- After exhausting retries, the job MUST be marked as failed with the
+  last error persisted.
+
+Rationale: Asynchronous jobs are failure-prone (transient network issues,
+rate limits). Logging and retry ensure observability and self-healing
+without manual intervention.
+
+## Development Constraints
+
+- Changes MUST be scoped to the current task. Unrelated refactoring is
+  prohibited in the same PR/commit.
+- If a refactor is genuinely needed, it MUST be filed as a separate task
+  and reviewed independently.
+
+Rationale: Mixed-purpose changes increase review surface, raise the
+risk of regressions, and make git history harder to trace.
+
+## Quality & Observability
+
+- All modules MUST include structured logging via the project's logging
+  utility (not bare `print()` calls).
+- Error handling MUST distinguish between expected (validation) and
+  unexpected (system) failures.
+- API responses MUST follow a consistent envelope format
+  (`{success, data, error}`).
+
+Rationale: Consistent observability patterns reduce debugging time and
+make the system's behavior predictable across all layers.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+1. **Supremacy**: This constitution supersedes all other practices,
+   style guides, and conventions.
+2. **Amendments**: Proposed changes MUST be documented in a GitHub
+   Issue or PR with rationale, migration plan (if applicable), and
+   explicit version bump per semantic versioning.
+3. **Versioning policy**:
+   - MAJOR: Backward-incompatible governance/principle removals or
+     redefinitions.
+   - MINOR: New principle or section added, or materially expanded
+     guidance.
+   - PATCH: Clarifications, wording, typo fixes, non-semantic
+     refinements.
+4. **Compliance**: All PRs MUST be reviewed against this constitution
+   before merge. Violations MUST be justified via the Complexity
+   Tracking table in the implementation plan.
+5. **Review cadence**: The constitution SHOULD be reviewed quarterly
+   for continued relevance.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): ask project lead for original adoption date | **Last Amended**: 2026-06-15
