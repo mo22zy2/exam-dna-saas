@@ -1,10 +1,14 @@
+import sys
 from logging.config import fileConfig
+from pathlib import Path
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from app.database import Base
-from app.models import User, UploadSession, File  # noqa: F401
+from app.models import User, UploadSession, File, OAuthIdentity  # noqa: F401
 
 config = context.config
 if config.config_file_name is not None:

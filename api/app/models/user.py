@@ -28,6 +28,12 @@ class User(Base):
     is_admin: Mapped[bool] = mapped_column(
         Boolean, nullable=False, default=False
     )
+    password_hash: Mapped[str | None] = mapped_column(
+        String(255), nullable=True, default=None
+    )
+    is_active: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc)
     )
@@ -39,3 +45,4 @@ class User(Base):
     )
 
     upload_sessions = relationship("UploadSession", back_populates="user")
+    oauth_identities = relationship("OAuthIdentity", back_populates="user")

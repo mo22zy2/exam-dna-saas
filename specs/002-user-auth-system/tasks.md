@@ -43,13 +43,13 @@ description: "Task list for user authentication system implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Create `api/app/auth/` package with `api/app/auth/__init__.py`
-- [ ] T006 [P] Update `api/app/models/user.py` — add `password_hash` (nullable String(255)), `is_active` (Boolean, default True)
-- [ ] T007 [P] Create `api/app/auth/utils.py` — JWT creation and validation helpers with python-jose
-- [ ] T008 [P] Create `api/app/auth/schemas.py` — Pydantic models for auth requests/responses (email+password, user response, error envelope)
-- [ ] T009 [P] Create `api/app/auth/dependencies.py` — `get_current_user` dependency that validates JWT from httpOnly cookie
-- [ ] T010 Create Alembic migration `api/alembic/versions/002_add_auth_fields.py` — add password_hash, is_active to users; create oauth_identities table
-- [ ] T011 Update `api/app/models/__init__.py` — export OAuthIdentity model
+- [x] T005 Create `api/app/auth/` package with `api/app/auth/__init__.py`
+- [x] T006 [P] Update `api/app/models/user.py` — add `password_hash` (nullable String(255)), `is_active` (Boolean, default True)
+- [x] T007 [P] Create `api/app/auth/utils.py` — JWT creation and validation helpers with python-jose
+- [x] T008 [P] Create `api/app/auth/schemas.py` — Pydantic models for auth requests/responses (email+password, user response, error envelope)
+- [x] T009 [P] Create `api/app/auth/dependencies.py` — `get_current_user` dependency that validates JWT from httpOnly cookie
+- [x] T010 Create Alembic migration `api/alembic/versions/002_add_auth_fields.py` — add password_hash, is_active to users; create oauth_identities table
+- [x] T011 Update `api/app/models/__init__.py` — export OAuthIdentity model
 
 **Checkpoint**: Foundation ready — user story implementation can now begin in parallel
 
