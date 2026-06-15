@@ -97,9 +97,9 @@ description: "Task list for user authentication system implementation"
 ### Implementation for User Story 3
 
 - [x] T019 [P] [US3] Add GET /auth/google to `api/app/auth/router.py` — redirect to Google OAuth consent screen
-- [ ] T020 [P] [US3] Add GET /auth/google/callback to `api/app/auth/router.py` — exchange code for tokens, find or create user by email, link OAuthIdentity, issue JWT cookie, redirect to frontend
-- [ ] T021 [P] [US3] Create `api/app/models/oauth_identity.py` — OAuthIdentity model (id, user_id FK, provider, provider_user_id, created_at)
-- [ ] T022 [US3] Add "Sign in with Google" button to `web/src/app/login/page.tsx` — link to GET /auth/google
+- [x] T020 [P] [US3] Add GET /auth/google/callback to `api/app/auth/router.py` — exchange code for tokens, find or create user by email, link OAuthIdentity, issue JWT cookie, redirect to frontend
+- [x] T021 [P] [US3] Create `api/app/models/oauth_identity.py` — OAuthIdentity model (id, user_id FK, provider, provider_user_id, created_at)
+- [x] T022 [US3] Add "Sign in with Google" button to `web/src/app/login/page.tsx` — link to GET /auth/google
 
 **Checkpoint**: User Story 3 complete — Google OAuth works end-to-end alongside email/password login
 
@@ -113,11 +113,11 @@ description: "Task list for user authentication system implementation"
 
 ### Implementation for User Story 4 & 6
 
-- [ ] T023 [P] [US4] Add POST /auth/logout to `api/app/auth/router.py` — clear JWT cookie with immediate expiry
-- [ ] T024 [P] [US4] Implement auth context provider in `web/src/lib/auth.tsx` — React context that calls GET /auth/me on mount to check session, provides `user`, `loading`, `login()`, `logout()` to children
-- [ ] T025 [P] [US4] Refactor `web/src/app/layout.tsx` — wrap with AuthProvider, add header with user menu (email + sign out button)
-- [ ] T026 [US4] Apply ProtectedLayout to `/profile` page route — redirect to /login if no valid session
-- [ ] T027 [US4] Update root `web/src/app/page.tsx` — show dashboard view for authenticated users, redirect to /login for unauthenticated
+- [x] T023 [P] [US4] Add POST /auth/logout to `api/app/auth/router.py` — clear JWT cookie with immediate expiry
+- [x] T024 [P] [US4] Implement auth context provider in `web/src/lib/auth.tsx` — React context that calls GET /auth/me on mount to check session, provides `user`, `loading`, `login()`, `logout()` to children
+- [x] T025 [P] [US4] Refactor `web/src/app/layout.tsx` — wrap with AuthProvider, add header with user menu (email + sign out button)
+- [x] T026 [US4] Apply ProtectedLayout to `/profile` page route — redirect to /login if no valid session
+- [x] T027 [US4] Update root `web/src/app/page.tsx` — show dashboard view for authenticated users, redirect to /login for unauthenticated
 
 **Checkpoint**: Session flows complete — login persists across reloads, sign out works, unauthenticated access is blocked
 
@@ -131,8 +131,8 @@ description: "Task list for user authentication system implementation"
 
 ### Implementation for User Story 5
 
-- [ ] T028 [P] [US5] Add GET /auth/me to `api/app/auth/router.py` — return current user profile (id, email, plan, analyses_used_this_month, is_admin)
-- [ ] T029 [P] [US5] Create `web/src/app/profile/page.tsx` — display user email, plan badge, account creation date, wrapped in ProtectedLayout
+- [x] T028 [P] [US5] Add GET /auth/me to `api/app/auth/router.py` — return current user profile (id, email, plan, analyses_used_this_month, is_admin)
+- [x] T029 [P] [US5] Create `web/src/app/profile/page.tsx` — display user email, plan badge, account creation date, wrapped in ProtectedLayout
 
 **Checkpoint**: User Story 5 complete — profile page shows user info with plan badge
 
@@ -142,10 +142,10 @@ description: "Task list for user authentication system implementation"
 
 **Purpose**: Finalize auth system — CORS hardening, env doc updates, validation
 
-- [ ] T030 [P] Configure CORS in `api/app/main.py` — allow frontend origin (`http://localhost:3000`) with credentials, restrict methods to GET/POST/OPTIONS
-- [ ] T031 [P] Update `api/.env.example` with all auth env vars and descriptive comments
-- [ ] T032 [P] Update `README.md` — add auth setup instructions (Google OAuth credentials, JWT secret generation)
-- [ ] T033 Run quickstart validation scenarios from `specs/002-user-auth-system/quickstart.md` — confirm all flows pass
+- [x] T030 [P] Configure CORS in `api/app/main.py` — allow frontend origin (`http://localhost:3000`) with credentials, restrict methods to GET/POST/OPTIONS
+- [x] T031 [P] Update `api/.env.example` with all auth env vars and descriptive comments
+- [x] T032 [P] Update `README.md` — add auth setup instructions (Google OAuth credentials, JWT secret generation)
+- [x] T033 Run quickstart validation scenarios from `specs/002-user-auth-system/quickstart.md` — confirm all flows pass
 
 ---
 
