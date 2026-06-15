@@ -29,11 +29,11 @@ description: "Task list for Project Foundation feature"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create repository root structure with `api/` and `web/` directories
-- [ ] T002 [P] Create docker-compose.yml for PostgreSQL (port 5432, db=examdna, user=postgres, password=devpassword) and Redis (port 6379) at docker-compose.yml
-- [ ] T003 [P] Create root .env.example with DATABASE_URL and REDIS_URL at .env.example
-- [ ] T004 Initialize Next.js App Router project with TypeScript and Tailwind CSS in web/
-- [ ] T005 Set up Python virtual environment and install FastAPI, SQLAlchemy, Alembic, psycopg2, redis-py, uvicorn, pydantic-settings in api/
+- [X] T001 Create repository root structure with `api/` and `web/` directories
+- [X] T002 [P] Create docker-compose.yml for PostgreSQL (port 5432, db=examdna, user=postgres, password=devpassword) and Redis (port 6379) at docker-compose.yml
+- [X] T003 [P] Create root .env.example with DATABASE_URL and REDIS_URL at .env.example
+- [X] T004 Initialize Next.js App Router project with TypeScript and Tailwind CSS in web/
+- [X] T005 Set up Python virtual environment and install FastAPI, SQLAlchemy, Alembic, psycopg2, redis-py, uvicorn, pydantic-settings in api/
 
 ---
 
@@ -43,15 +43,15 @@ description: "Task list for Project Foundation feature"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 [P] Create FastAPI application factory with lifespan and CORS config in api/app/main.py
-- [ ] T007 [P] Create Pydantic settings model loading from env vars in api/app/config.py
-- [ ] T008 [P] Configure SQLAlchemy engine, session factory, and Base declarative model in api/app/database.py
-- [ ] T009 Set up Alembic with env.py (importing Base from database.py), alembic.ini, and script.py.mako in api/
-- [ ] T010 [P] Create User SQLAlchemy model (id, email, plan, analyses_used_this_month, is_admin, timestamps) in api/app/models/user.py
-- [ ] T011 [P] Create UploadSession SQLAlchemy model (id, user_id FK, status, timestamps) in api/app/models/upload_session.py
-- [ ] T012 [P] Create File SQLAlchemy model (id, upload_session_id FK, filename, storage_key, file_size, created_at) in api/app/models/file.py
-- [ ] T013 Create models package __init__ exporting all models in api/app/models/__init__.py
-- [ ] T014 Generate initial Alembic migration creating users, upload_sessions, and files tables in api/alembic/versions/
+- [X] T006 [P] Create FastAPI application factory with lifespan and CORS config in api/app/main.py
+- [X] T007 [P] Create Pydantic settings model loading from env vars in api/app/config.py
+- [X] T008 [P] Configure SQLAlchemy engine, session factory, and Base declarative model in api/app/database.py
+- [X] T009 Set up Alembic with env.py (importing Base from database.py), alembic.ini, and script.py.mako in api/
+- [X] T010 [P] Create User SQLAlchemy model (id, email, plan, analyses_used_this_month, is_admin, timestamps) in api/app/models/user.py
+- [X] T011 [P] Create UploadSession SQLAlchemy model (id, user_id FK, status, timestamps) in api/app/models/upload_session.py
+- [X] T012 [P] Create File SQLAlchemy model (id, upload_session_id FK, filename, storage_key, file_size, created_at) in api/app/models/file.py
+- [X] T013 Create models package __init__ exporting all models in api/app/models/__init__.py
+- [X] T014 Generate initial Alembic migration creating users, upload_sessions, and files tables in api/alembic/versions/
 
 **Checkpoint**: Foundation ready — user story implementation can now begin in parallel
 
@@ -65,11 +65,11 @@ description: "Task list for Project Foundation feature"
 
 ### Implementation for User Story 1
 
-- [ ] T015 [P] [US1] Implement GET /health endpoint returning envelope format in api/app/main.py
-- [ ] T016 [P] [US1] Create Next.js welcome page with basic Tailwind-styled content at web/src/app/page.tsx
-- [ ] T017 [P] [US1] Create Next.js root layout with metadata at web/src/app/layout.tsx
-- [ ] T018 [P] [US1] Create Tailwind CSS entry point with @tailwind directives at web/src/app/globals.css
-- [ ] T019 [US1] Write README.md with prerequisites and step-by-step setup instructions at README.md
+- [X] T015 [P] [US1] Implement GET /health endpoint returning envelope format in api/app/main.py
+- [X] T016 [P] [US1] Create Next.js welcome page with basic Tailwind-styled content at web/src/app/page.tsx
+- [X] T017 [P] [US1] Create Next.js root layout with metadata at web/src/app/layout.tsx
+- [X] T018 [P] [US1] Create Tailwind CSS entry point with @tailwind directives at web/src/app/globals.css
+- [X] T019 [US1] Write README.md with prerequisites and step-by-step setup instructions at README.md
 
 **Checkpoint**: User Story 1 fully functional — developer can run the full stack locally.
 
@@ -83,13 +83,13 @@ description: "Task list for Project Foundation feature"
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create backend requirements.txt at api/requirements.txt
-- [ ] T021 [P] [US2] Create backend Dockerfile at api/Dockerfile
-- [ ] T022 [P] [US2] Create frontend Dockerfile at web/Dockerfile
-- [ ] T023 [P] [US2] Create Next.js config at web/next.config.ts
-- [ ] T024 [P] [US2] Create TypeScript config at web/tsconfig.json
-- [ ] T025 [P] [US2] Create Tailwind config at web/tailwind.config.ts
-- [ ] T026 [US2] Run `alembic upgrade head` and `alembic downgrade -1` to verify round-trip migration
+- [X] T020 [P] [US2] Create backend requirements.txt at api/requirements.txt
+- [X] T021 [P] [US2] Create backend Dockerfile at api/Dockerfile
+- [X] T022 [P] [US2] Create frontend Dockerfile at web/Dockerfile
+- [X] T023 [P] [US2] Create Next.js config at web/next.config.ts
+- [X] T024 [P] [US2] Create TypeScript config at web/tsconfig.json
+- [X] T025 [P] [US2] Create Tailwind config at web/tailwind.config.ts
+- [X] T026 [US2] Run `alembic upgrade head` and `alembic downgrade -1` to verify round-trip migration
 
 **Checkpoint**: All user stories independently functional.
 
@@ -99,10 +99,10 @@ description: "Task list for Project Foundation feature"
 
 **Purpose**: Final touches affecting the whole foundation
 
-- [ ] T027 Create .gitignore at repo root excluding node_modules/, __pycache__/, .venv/, .env, .next/
-- [ ] T028 [P] Add Python type stubs and mypy config for backend in api/pyproject.toml
-- [ ] T029 [P] Add ESLint config for frontend in web/eslint.config.mjs
-- [ ] T030 Run quickstart.md validation to verify end-to-end setup works
+- [X] T027 Create .gitignore at repo root excluding node_modules/, __pycache__/, .venv/, .env, .next/
+- [X] T028 [P] Add Python type stubs and mypy config for backend in api/pyproject.toml
+- [X] T029 [P] Add ESLint config for frontend in web/eslint.config.mjs
+- [X] T030 Run quickstart.md validation to verify end-to-end setup works
 
 ---
 
