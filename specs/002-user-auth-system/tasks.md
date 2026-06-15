@@ -81,8 +81,8 @@ description: "Task list for user authentication system implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T017 [P] [US2] Add POST /auth/jwt/login to `api/app/auth/router.py` — verify email+password, issue JWT cookie, return user
-- [ ] T018 [P] [US2] Create `web/src/app/login/page.tsx` — login form with email + password fields, submit to POST /auth/jwt/login, redirect to / on success
+- [x] T017 [P] [US2] Add POST /auth/jwt/login to `api/app/auth/router.py` — verify email+password, issue JWT cookie, return user
+- [x] T018 [P] [US2] Create `web/src/app/login/page.tsx` — login form with email + password fields, submit to POST /auth/jwt/login, redirect to / on success
 
 **Checkpoint**: User Story 2 complete — user can sign up, sign out, sign back in, and access protected pages
 
@@ -96,7 +96,7 @@ description: "Task list for user authentication system implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T019 [P] [US3] Add GET /auth/google to `api/app/auth/router.py` — redirect to Google OAuth consent screen
+- [x] T019 [P] [US3] Add GET /auth/google to `api/app/auth/router.py` — redirect to Google OAuth consent screen
 - [ ] T020 [P] [US3] Add GET /auth/google/callback to `api/app/auth/router.py` — exchange code for tokens, find or create user by email, link OAuthIdentity, issue JWT cookie, redirect to frontend
 - [ ] T021 [P] [US3] Create `api/app/models/oauth_identity.py` — OAuthIdentity model (id, user_id FK, provider, provider_user_id, created_at)
 - [ ] T022 [US3] Add "Sign in with Google" button to `web/src/app/login/page.tsx` — link to GET /auth/google

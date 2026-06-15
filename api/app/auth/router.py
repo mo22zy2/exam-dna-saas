@@ -1,18 +1,36 @@
 from fastapi import APIRouter, HTTPException, Response, status
+from fastapi.responses import RedirectResponse
+from httpx_oauth.clients.google import GoogleOAuth2
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
 from app.auth.dependencies import get_current_user
 from app.auth.schemas import (
+    AuthLoginRequest,
     AuthRegisterRequest,
     UserResponse,
 )
 from app.auth.utils import create_access_token
+from app.config import settings
 from app.database import SessionLocal
 from app.models.user import User
 
 router = APIRouter(prefix="/auth")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+google_client = GoogleOAuth2(
+    settings.google_client_id, settings.google_client_secret
+)
+
+
+@router.get("/google")
+async def google_login():
+    redirect_uri = "http://localhost:8000/auth/google/callback"
+    authorization_url = await google_client.get_authorization_url(
+        redirect_uri,
+        scope=["openid", "email", "profile"],
+    )
+    return RedirectResponse(authorization_url, status_code=302)
 
 
 def _user_to_response(user: User) -> UserResponse:
@@ -37,6 +55,36 @@ def _set_token_cookie(response: Response, user_id: str) -> None:
         samesite="lax",
         path="/",
     )
+
+
+@router.post("/jwt/login")
+async def login(body: AuthLoginRequest, response: Response):
+    db: Session = SessionLocal()
+    try:
+        user = db.query(User).filter(User.email == body.email).first()
+        if not user or not user.password_hash:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password",
+            )
+
+        if not pwd_context.verify(body.password, user.password_hash):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password",
+            )
+
+        if not user.is_active:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Account is inactive",
+            )
+
+        _set_token_cookie(response, str(user.id))
+
+        return {"success": True, "data": _user_to_response(user)}
+    finally:
+        db.close()
 
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
