@@ -93,9 +93,9 @@ the database shows all three tables with correct columns.
   `id` (UUID primary key), `upload_session_id` (foreign key to
   upload_sessions), `filename` (string), `storage_key` (string),
   `file_size` (integer), `created_at`.
-- **FR-009**: Backend MUST expose a health-check endpoint (e.g.,
-  `GET /health`) that returns a 200 response when the service is
-  running.
+- **FR-009**: Backend MUST expose a health-check endpoint at
+  `GET /health` that returns a 200 response with the standard
+  envelope format: `{"success": true, "data": {"status": "ok"}}`.
 - **FR-010**: Frontend MUST display a basic welcome/home page on
   `GET /` without errors.
 
@@ -124,6 +124,15 @@ the database shows all three tables with correct columns.
   specified columns after running the setup commands.
 - **SC-004**: The frontend dev server starts and renders a page
   without console errors.
+
+## Clarifications
+
+### Session 2026-06-15
+
+- Q: Should the scaffold include logging infrastructure setup?
+  → A: Defer logging to a later task — the scaffold is purely structural
+- Q: What response format should the health check endpoint use?
+  → A: Use the standard envelope format `{"success": true, "data": {"status": "ok"}}`
 
 ## Assumptions
 
