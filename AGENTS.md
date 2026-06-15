@@ -1,4 +1,4 @@
 <!-- SPECKIT START -->
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+The current implementation plan is at `specs/001-project-foundation/plan.md`.
+Read it for project structure, tech stack, and design decisions.
 <!-- SPECKIT END -->
