@@ -31,9 +31,9 @@ description: "Task list for user authentication system implementation"
 **Purpose**: Install new dependencies and configure environment variables for auth
 
 - [x] T001 Add auth dependencies to `api/requirements.txt` (fastapi-users[sqlalchemy], httpx-oauth, python-jose[cryptography], passlib[bcrypt])
-- [ ] T002 Add auth environment variables to `api/.env.example` (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET, JWT_EXPIRY)
-- [ ] T003 Add auth settings to `api/app/config.py` (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET, JWT_EXPIRY fields)
-- [ ] T004 [P] Run `pip install -r api/requirements.txt` to install new dependencies
+- [x] T002 Add auth environment variables to `api/.env.example` (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET, JWT_EXPIRY)
+- [x] T003 Add auth settings to `api/app/config.py` (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET, JWT_EXPIRY fields)
+- [x] T004 [P] Run `pip install -r api/requirements.txt` to install new dependencies
 
 ---
 
