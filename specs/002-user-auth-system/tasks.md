@@ -63,11 +63,11 @@ description: "Task list for user authentication system implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create `api/app/auth/router.py` — include POST /auth/register endpoint (validate input, hash password, create user, issue JWT cookie, return user)
-- [ ] T013 [P] [US1] Create `web/src/app/register/page.tsx` — signup form with email + password fields, submit to POST /auth/register, redirect to / on success
-- [ ] T014 [P] [US1] Create `web/src/lib/auth.ts` — `login()` and `logout()` fetch helpers with `credentials: 'include'`, user state interface
-- [ ] T015 [P] [US1] Create `web/src/components/ProtectedLayout.tsx` — wrapper that checks auth state, redirects to /login if not authenticated
-- [ ] T016 [US1] Register auth router in `api/app/main.py` — mount `/auth` prefix, configure CORS for frontend origin
+- [x] T012 [P] [US1] Create `api/app/auth/router.py` — include POST /auth/register endpoint (validate input, hash password, create user, issue JWT cookie, return user)
+- [x] T013 [P] [US1] Create `web/src/app/register/page.tsx` — signup form with email + password fields, submit to POST /auth/register, redirect to / on success
+- [x] T014 [P] [US1] Create `web/src/lib/auth.tsx` — auth context provider, user state, login/logout helpers with `credentials: 'include'`
+- [x] T015 [P] [US1] Create `web/src/components/ProtectedLayout.tsx` — wrapper that checks auth state, redirects to /login if not authenticated
+- [x] T016 [US1] Register auth router in `api/app/main.py` — mount `/auth` prefix, configure CORS for frontend origin
 
 **Checkpoint**: At this point, User Story 1 should be fully functional — user can sign up via browser or curl, get a session cookie, and see the dashboard
 
