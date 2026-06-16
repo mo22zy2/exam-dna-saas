@@ -30,7 +30,7 @@ FRONTEND_URL = "http://localhost:3000"
 
 
 @router.get("/google")
-async def google_login():
+async def google_login() -> RedirectResponse:
     authorization_url = await google_client.get_authorization_url(
         GOOGLE_REDIRECT_URI,
         scope=["openid", "email", "profile"],
@@ -42,7 +42,7 @@ async def google_login():
 async def google_callback(
     code: str | None = Query(default=None),
     error: str | None = Query(default=None),
-):
+) -> RedirectResponse:
     if error:
         return RedirectResponse(
             f"{FRONTEND_URL}/login?error=access_denied", status_code=302
@@ -105,7 +105,7 @@ async def google_callback(
 
 
 @router.get("/me")
-async def get_me(current_user: User = Depends(get_current_user)):
+async def get_me(current_user: User = Depends(get_current_user)) -> dict[str, object]:
     return {"success": True, "data": _user_to_response(current_user)}
 
 
@@ -134,7 +134,7 @@ def _set_token_cookie(response: Response, user_id: str) -> None:
 
 
 @router.post("/jwt/login")
-async def login(body: AuthLoginRequest, response: Response):
+async def login(body: AuthLoginRequest, response: Response) -> dict[str, object]:
     db: Session = SessionLocal()
     try:
         user = db.query(User).filter(User.email == body.email).first()
@@ -164,7 +164,7 @@ async def login(body: AuthLoginRequest, response: Response):
 
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
-async def register(body: AuthRegisterRequest, response: Response):
+async def register(body: AuthRegisterRequest, response: Response) -> dict[str, object]:
     if len(body.password) < 8:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -199,7 +199,7 @@ async def register(body: AuthRegisterRequest, response: Response):
 
 
 @router.post("/logout")
-async def logout(response: Response):
+async def logout(response: Response) -> dict[str, object]:
     response.set_cookie(
         key="access_token",
         value="",

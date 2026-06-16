@@ -1,3 +1,4 @@
+from typing import cast
 from datetime import datetime, timedelta, timezone
 
 from jose import JWTError, jwt
@@ -12,7 +13,7 @@ def create_access_token(user_id: str) -> str:
         "iat": now,
         "exp": now + timedelta(seconds=settings.jwt_expiry),
     }
-    return jwt.encode(payload, settings.jwt_secret, algorithm="HS256")
+    return cast(str, jwt.encode(payload, settings.jwt_secret, algorithm="HS256"))
 
 
 def decode_access_token(token: str) -> str | None:
@@ -20,6 +21,6 @@ def decode_access_token(token: str) -> str | None:
         payload = jwt.decode(
             token, settings.jwt_secret, algorithms=["HS256"]
         )
-        return payload.get("sub")
+        return cast(str | None, payload.get("sub"))
     except JWTError:
         return None
