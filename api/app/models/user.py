@@ -25,6 +25,9 @@ class User(Base):
     analyses_used_this_month: Mapped[int] = mapped_column(
         Integer, nullable=False, default=0
     )
+    files_uploaded: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0
+    )
     is_admin: Mapped[bool] = mapped_column(
         Boolean, nullable=False, default=False
     )
@@ -45,4 +48,5 @@ class User(Base):
     )
 
     upload_sessions = relationship("UploadSession", back_populates="user")
+    files = relationship("File", back_populates="user")
     oauth_identities = relationship("OAuthIdentity", back_populates="user")

@@ -31,6 +31,17 @@ export default function Header() {
         </a>
         {user && (
           <div className="flex items-center gap-4">
+            <nav className="flex items-center gap-3 mr-4">
+              <a href="/" className="text-sm text-gray-600 hover:text-gray-900">
+                Dashboard
+              </a>
+              <a href="/upload" className="text-sm text-gray-600 hover:text-gray-900">
+                Upload
+              </a>
+              <a href="/profile" className="text-sm text-gray-600 hover:text-gray-900">
+                Profile
+              </a>
+            </nav>
             <span className="text-sm text-gray-600">{user.email}</span>
             <button
               onClick={handleLogout}
